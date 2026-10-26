@@ -18,6 +18,7 @@ pnpm dev:web
 ## 验证与构建
 
 ```powershell
+pnpm clean:cache     # 清理下载副本、自检资料及构建缓存，保留依赖和 dist 成品
 pnpm verify          # Core+Web 类型检查，Core 100% 覆盖门槛，编译与固定回放比对
 pnpm demo            # 无界面解开第一个残局，输出得分和恢复前后哈希
 pnpm build           # Core + Web 构建输出到 ../dist/
@@ -106,3 +107,5 @@ Web 生产包使用普通 IIFE 脚本，可从本地文件直接启动，也可�
 线上 Web 发布需 HTTPS、自己的域名/服务器与平台资质。iOS 构建需 macOS/Xcode 和开发者账号；密钥、证书、个人信息不要提交到工程。最新状态见 [Windows 与本地文件启动验证](docs/verification/windows-and-file-launch.md)，Core 的初期验收见 [历史验证报告](docs/verification/phase-2-and-web.md)。
 
 Android Debug 自动构建和下载方法见 [Android 文档](docs/android-debug.md)。云端产物在 Actions 的 android-debug Artifact 中，不提交到 Git。
+
+缓存整理：`pnpm clean:cache` 只清理明确列出的中间目录（node_modules/.cache、Vite 缓存、Android build/.gradle 等），保留已安装依赖、dist 当前版本、源码、测试与授权资料。后续开发和构建会按需重建缓存。Windows 成品目录中的 DLL、资源和许可证均为运行必需文件。
