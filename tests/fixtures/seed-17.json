@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "ruleset": "echo-v1",
+  "config": {"seed": 17, "mode": "marathon", "preset": "standard", "allow180": false, "puzzle": null},
+  "endTick": 500,
+  "expectedHash": "7f3279ab",
+  "inputs": [
+    {"tick": 1, "sequence": 0, "action": "left", "pressed": true},
+    {"tick": 24, "sequence": 1, "action": "left", "pressed": false},
+    {"tick": 25, "sequence": 2, "action": "cw", "pressed": true},
+    {"tick": 26, "sequence": 3, "action": "hard", "pressed": true},
+    {"tick": 30, "sequence": 4, "action": "hold", "pressed": true}
+  ]
+}

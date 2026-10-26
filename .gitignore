@@ -1,0 +1,12 @@
+node_modules/
+build/
+coverage/
+.pnpm-store/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+*.keystore
+*.p12
+*.mobileprovision

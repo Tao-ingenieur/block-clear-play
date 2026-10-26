@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "rewriteRelativeImportExtensions": true,
+    "outDir": "../dist/core",
+    "rootDir": "packages/core/src",
+    "types": [],
+    "lib": ["ES2022"]
+  },
+  "include": ["packages/core/src/**/*.ts"]
+}

@@ -1,0 +1,56 @@
+/* Dialog intrinsic sizing and compact-screen refinements, verified in browser. */
+fieldset{min-inline-size:0}
+legend{float:none;width:auto;padding:0;display:block;margin-bottom:10px}
+fieldset label{width:100%;clear:both}
+fieldset label select{flex-shrink:0}
+.mobile-tools{display:flex;gap:22px;margin-top:12px}
+@media(min-width:601px) and (max-width:850px){
+  .score-section{display:block;min-width:65px}
+  .score-section>.eyebrow{font-size:8px;letter-spacing:.5px}
+  .score-value{font-size:24px;margin-top:3px}
+  .score-divider,.record-row{display:none}
+  .score-rail{padding:0 10px;gap:15px;flex-wrap:wrap}
+  .metrics{gap:12px}
+}
+@media(max-width:600px){
+  :root{--board-width:min(65vw,280px,calc((100dvh - 355px)/2))}
+  .topbar{height:58px}
+  .main-layout{padding:10px 0 8px}
+  .arena{padding-top:8px}
+  .arena-heading{margin-bottom:6px}
+  .touch-controls{margin-top:10px}
+  .score-rail{margin-top:12px}
+  footer{display:none}
+  .board-overlay .primary-button{min-width:0;width:100%;padding:10px 8px}
+  .board-overlay .primary-button span{margin-left:5px}
+  .board-overlay .overlay-orbit{margin-bottom:15px}
+  .board-overlay h2{font-size:16px}
+  .puzzle-switch{margin-top:-2px}
+}
+@media(max-height:700px) and (max-width:600px){
+  :root{--board-width:min(60vw,calc((100dvh - 325px)/2))}
+}
+@media(max-height:500px) and (min-width:601px){
+  :root{--board-width:calc((100dvh - 118px)/2)}
+  .app-shell{padding:0 20px}.topbar{height:48px}.brand b{font-size:16px}.brand small{font-size:6px}
+  .main-layout{display:grid;grid-template-columns:140px minmax(250px,1fr) 140px;gap:12px;padding:12px 0}
+  .mode-rail{grid-row:auto}.mode-rail>.eyebrow,.mode-rail h1,.rail-note{display:none}
+  .mode-button{min-height:36px;padding:10px;gap:10px}.mode-name{font-size:11px}.mode-name small,.mode-icon{display:none}
+  .arena-heading{height:20px;margin-bottom:8px}.arena-heading .eyebrow{font-size:8px}
+  .keyboard-strip,footer,.vertical-label{display:none}.game-layout{gap:10px}
+  .piece-column,.piece-column canvas{width:36px}.piece-column canvas{height:38px}
+  .piece-column .eyebrow{font-size:7px;letter-spacing:.5px}.queue-line{display:none}
+  .score-rail{grid-column:auto;display:block;padding:28px 0 0;margin:0}
+  .score-section{display:block}.score-value{font-size:25px}.record-row,.score-divider{display:none}
+  .metrics{display:grid;grid-template-columns:1fr 1fr;margin-top:18px;gap:17px 10px}
+  .metrics strong{font-size:21px}.metrics .eyebrow{font-size:8px}.timer-metric strong{font-size:19px}
+  .session-actions{margin-top:16px;padding:0}.secondary-button{width:100%;padding:9px}
+  .board-overlay{padding:10px}.board-overlay h2{font-size:14px}.board-overlay p{font-size:9px}
+  .overlay-orbit{display:none}.board-overlay .primary-button{min-width:0;width:100%;font-size:10px;padding:10px 7px;margin-top:15px}
+  .board-overlay .primary-button span{margin-left:4px}.board-overlay .link-button{font-size:8px}
+  .puzzle-switch{margin-bottom:5px;font-size:8px}.arena:has(.puzzle-switch:not(.hidden)){--board-width:calc((100dvh - 144px)/2)}
+  .touch-controls{display:grid;position:fixed;right:20px;bottom:12px;width:140px;grid-template-columns:repeat(4,1fr);gap:5px;margin:0;touch-action:none}
+  .touch-controls button{height:28px;border:1px solid var(--line);border-radius:4px;background:var(--surface);font-size:16px}
+  .touch-controls .drop-button{background:var(--soft);color:var(--accent)}
+  .touch-controls .pressed{background:var(--accent);color:var(--accent-ink)}
+}

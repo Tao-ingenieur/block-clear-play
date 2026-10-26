@@ -1,0 +1,27 @@
+{
+  "name": "dropgrid",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "test": "node --test --test-isolation=none tests/*.test.ts",
+    "test:coverage": "node --experimental-test-coverage --test-coverage-include=packages/core/src/** --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 --test --test-isolation=none tests/*.test.ts",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p apps/web/tsconfig.json",
+    "dev:web": "vite apps/web --host 127.0.0.1",
+    "build:web": "vite build apps/web --base=./ --outDir ../../../dist/web-v0.1.0 --emptyOutDir && node tools/package.mjs",
+    "preview:web": "vite preview apps/web --host 127.0.0.1 --outDir ../../../dist/web-v0.1.0",
+    "build:core": "tsc -p tsconfig.build.json && node tools/core-package.mjs",
+    "build": "pnpm build:core && pnpm build:web",
+    "demo": "node tools/simulate.ts",
+    "verify:build": "node tools/verify-build.mjs",
+    "verify": "pnpm typecheck && pnpm test:coverage && pnpm build && pnpm verify:build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}
