@@ -1,0 +1,18 @@
+{
+  "runId": 40316390572,
+  "commit": "0372289085e53392f80c38d0b8ed5729825b4396",
+  "workflow": "https://github.com/Tao-ingenieur/block-clear-play/actions/runs/40316390572",
+  "artifactId": 12646303717,
+  "bytes": 1188732,
+  "sha256": "2cf8d0a982c3bbe7300426bbc2db8aea95b6a8b3deddee774e822d38ca097897",
+  "verification": [
+    "CI Core/Web tests",
+    "assembleDebug",
+    "lintDebug",
+    "apksigner verify",
+    "packaged game assets",
+    "download SHA-256",
+    "downloaded APK manifest/DEX and three Web asset hashes match local build"
+  ],
+  "deviceTested": false
+}

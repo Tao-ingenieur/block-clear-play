@@ -35,3 +35,7 @@ CI 的编译、lint、资源检查和签名验证不等同于真机测试。仍�
 - AndroidX WebKit 1.12.1 及其 AndroidX 传递依赖：Google Maven，Apache-2.0；[官方组件与版本](https://developer.android.com/jetpack/androidx/releases/webkit)、[AndroidX 源码许可](https://android.googlesource.com/platform/frameworks/support/+/androidx-main/LICENSE.txt)。
 - AGP/Android 构建工具仅用于开发构建；运行时使用设备自带 Android System WebView。
 - [Android 官方命令行构建说明](https://developer.android.com/build/building-cmdline)、[AGP 8.9 工具链兼容表](https://developer.android.com/build/releases/agp-8-9-0-release-notes)、[GitHub 构建产物说明](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts)。
+
+## 本次实际构建结果
+
+[已通过的 GitHub Actions 构建](https://github.com/Tao-ingenieur/block-clear-play/actions/runs/40316390572)：编译、lint、签名和资源验证及上传全部成功。APK 已下载至本地 dist/android/BlockClearPlay-debug.apk，1,188,732 字节；SHA-256 及源提交见 verification/android-debug.json。下载后再次检查 Manifest、DEX 与三份 Web 资源哈希，均与本地生产构建一致。未进行模拟器或真机运行测试。
