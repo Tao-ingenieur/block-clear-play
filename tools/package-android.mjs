@@ -21,4 +21,5 @@ await fs.writeFile(path.join(output,'SHA256SUMS.txt'),`${createHash('sha256').up
 await fs.writeFile(path.join(output,'version.json'),JSON.stringify({version,variant:'debug',commit:process.env.GITHUB_SHA??null},null,2));
 await fs.writeFile(path.join(output,'README.txt'),'方块消消看 — Android Debug 测试版\n\n安装 BlockClearPlay-debug.apk，Android 8.0+，无需联网。\n这是调试签名的侧载测试版，不可作为商店发布包。\n云端每次构建的调试签名可能不同，若无法覆盖安装，需卸载旧测试版再装；卸载会删除其存档。\n版本见应用信息和 version.json；新构建替换 dist/android 内旧产物。\n');
 await import('./write-dist-guide.mjs');
+if(process.env.GITHUB_ENV)await fs.appendFile(process.env.GITHUB_ENV,`ANDROID_APK_OUTPUT=${output}\n`);
 console.log(JSON.stringify({output,version,bytes:bytes.length},null,2));
