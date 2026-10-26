@@ -2,6 +2,8 @@
 
 原创方块消除游戏的 TypeScript 工程。目前交付确定性 Core、可直接打开的 Web 单机版、Windows 64 位开发版和 Android Debug 构建工程，尚未达到五平台商用发布状态。工作名尚未进行商标检索。
 
+如需让其他大模型从零复现或接手开发，可直接使用 [完整产品开发 Prompt](docs/prompts/development-prompt.zh-CN.md)，包含玩法规则、平台适配、构建交付、清理约定和验收标准。
+
 ## 运行
 
 需要 Node.js 24+、pnpm 11。首次安装需联网；使用 pnpm-lock.yaml 固定依赖。在源码仓库根目录（本项目的 repo/）执行：
