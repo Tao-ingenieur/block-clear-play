@@ -3,9 +3,8 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {spawn} from 'node:child_process';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const {version}=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8'));
 const packaged=process.argv.includes('--packaged');
-const executable=packaged?path.resolve(root,`../dist/windows-v${version}/win-unpacked/BlockClearPlay.exe`):
+const executable=packaged?path.resolve(root,`../dist/windows/BlockClearPlay.exe`):
   path.join(root,'node_modules/electron/dist/electron.exe');
 const reports=path.join(root,'node_modules/.cache/dropgrid-smoke',packaged?'packaged':'development');
 await fs.mkdir(reports,{recursive:true});

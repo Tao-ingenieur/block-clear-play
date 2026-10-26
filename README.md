@@ -13,7 +13,7 @@ pnpm dev:web
 
 开发时打开终端输出的本地地址，默认 http://127.0.0.1:5173/ 。服务器默认只绑定本机，不对外发布。
 
-玩家运行构建产物时不需要 pnpm：Web 版双击 `../dist/web-v0.1.0/index.html`；Windows 版双击 `../dist/windows-v0.1.0/BlockClearPlay-Setup-0.1.0.exe` 安装，或运行 `win-unpacked/BlockClearPlay.exe`。免安装版必须保留 win-unpacked 整个目录，不能只复制 exe。
+玩家运行构建产物时不需要 pnpm：Web 版双击 `../dist/web/index.html`；Windows 绿色版双击 `../dist/windows/BlockClearPlay.exe`，必须保留 windows 整个目录，不能只复制 exe。目录和文件名不带版本号，软件版本见 EXE 属性和 version.json。新版构建成功后自动替换旧程序和资源，AppData 中的个人存档不受影响。
 
 ## 验证与构建
 
@@ -22,9 +22,9 @@ pnpm verify          # Core+Web 类型检查，Core 100% 覆盖门槛，编译�
 pnpm demo            # 无界面解开第一个残局，输出得分和恢复前后哈希
 pnpm build           # Core + Web 构建输出到 ../dist/
 pnpm build:core      # Core 编译库：../dist/core/
-pnpm build:web       # Web 生产包：../dist/web-v0.1.0/，含文件校验清单
+pnpm build:web       # Web 生产包：../dist/web/，含文件校验清单
 pnpm preview:web     # 本地验证生产包，通常端口 4173
-pnpm build:windows   # 在 Windows 上生成 x64 免安装目录和 NSIS 安装包
+pnpm build:windows   # 在 Windows 上生成 x64 绿色版，自动替换旧产物
 pnpm smoke:windows   # 隐藏运行打包后的 exe，验证玩法、暂停、存档与 file:// 入口
 ```
 
@@ -85,10 +85,10 @@ dropGrid/
     node_modules/          # 仅本地依赖，.gitignore 排除
   dist/                    # 自动生成，不属于源码仓库
     core/                  # 编译后的 JS 库及类型声明
-    web-v0.1.0/            # 双击 index.html 游玩，也可部署到静态服务器
-    windows-v0.1.0/        # Windows x64 安装器与 win-unpacked 免安装目录
+    web/                   # 双击 index.html 游玩，也可部署到静态服务器
+    windows/               # Windows x64 绿色版，直接运行 BlockClearPlay.exe
     README.txt             # 各产物的用途和启动入口
-    SHA256SUMS.txt          # 安装包校验值
+    SHA256SUMS.txt          # 绿色版 EXE 校验值
 ```
 
 上传 GitHub 时以 `repo/` 为仓库根目录，包含源码、测试、文档、配置和依赖锁文件。安装依赖使用 `pnpm install --frozen-lockfile`；不要上传 node_modules、本地缓存、环境密钥或外层 dist。构建输出统一在仓库外的 `../dist/`，不生成源码复制目录或源码压缩包。
@@ -97,7 +97,7 @@ dropGrid/
 
 ## 限制与下一步
 
-未交付：微信真机包、APK/AAB、iOS 归档、在线服务、真实支付/广告、云存档、运营后台、正式发布合规。Windows 为未签名的开发测试版，安装包需要单独验证安装/升级/卸载；目前验证了免安装 exe 的实际启动、消行、暂停和存档恢复，不能把这些测试当成完整商用认证。Web 仍需浏览器/设备矩阵、真实音频试听、性能/内存测量和视觉打磨；目前的 20 关为入门教学内容，难度设计需继续扩展。
+未交付：微信真机包、APK/AAB、iOS 归档、在线服务、真实支付/广告、云存档、运营后台、正式发布合规。Windows 为未签名的开发测试版；目前验证了免安装 exe 的实际启动、消行、暂停和存档恢复，不能把这些测试当成完整商用认证。Web 仍需浏览器/设备矩阵、真实音频试听、性能/内存测量和视觉打磨；目前的 20 关为入门教学内容，难度设计需继续扩展。
 
 Web 生产包使用普通 IIFE 脚本，可从本地文件直接启动，也可在 HTTP/HTTPS 静态服务器部署。file:// 下本地存储行为由浏览器决定，受限时仍可游玩；Windows 版使用独立、稳定的本地来源和用户存档目录。不含 PWA 缓存。音频遵循浏览器权限与平台行为，移动系统静音开关的具体一致性留待原生适配和真机验证。
 

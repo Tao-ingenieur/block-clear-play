@@ -14,7 +14,7 @@ let window;
 let watchdog;
 const errors=[];
 const checks=[];
-const webRoot=app.isPackaged?path.join(process.resourcesPath,'web'):path.resolve(__dirname,'../../../dist/web-v0.1.0');
+const webRoot=app.isPackaged?path.join(process.resourcesPath,'web'):path.resolve(__dirname,'../../../dist/web');
 const entry='echo://game/index.html';
 const csp="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'";
 

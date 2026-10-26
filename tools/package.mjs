@@ -5,10 +5,10 @@ import {createHash} from 'node:crypto';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const {version}=JSON.parse(await fs.readFile(new URL('../package.json',import.meta.url),'utf8'));
-const output=path.join(root,'dist',`web-v${version}`);
+const output=path.join(root,'dist','web');
 // The build already writes directly to this directory. Only add its file manifest.
 const actualParent=await fs.realpath(path.dirname(output));
-if(path.relative(path.join(root,'dist'),actualParent)!==''||path.basename(output)!==`web-v${version}`)throw new Error('Unsafe output path');
+if(path.relative(path.join(root,'dist'),actualParent)!==''||path.basename(output)!=='web')throw new Error('Unsafe output path');
 const actual=await fs.realpath(output);
 if(path.relative(output,actual)!=='')throw new Error('Output must not be redirected');
 const files=[];

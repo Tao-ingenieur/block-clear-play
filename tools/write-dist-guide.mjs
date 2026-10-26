@@ -1,5 +1,4 @@
 import fs from 'node:fs/promises';
-const {version}=JSON.parse(await fs.readFile(new URL('../package.json',import.meta.url),'utf8'));
 await fs.mkdir(new URL('../../dist/',import.meta.url),{recursive:true});
 await fs.writeFile(new URL('../../dist/README.txt',import.meta.url),
-`方块消消看 — 构建产物说明\r\n\r\nweb-v${version}/index.html\r\n  Web 版入口：双击即可运行。保留同目录的 game.js、game.css 等文件。\r\n\r\nwindows-v${version}/\r\n  Windows 64 位桌面版。成功构建后包含安装包、免安装程序和所需资源。\r\n  BlockClearPlay-Setup-${version}.exe 是安装包，不需要另装 Node.js。\r\n  win-unpacked/BlockClearPlay.exe 是免安装入口，必须保留 win-unpacked 整个目录。\r\n\r\ncore/\r\n  开发用的编译规则库（JS 与类型声明），供各平台复用。没有界面，不能独立游玩。\r\n\r\nZIP 的含义\r\n  ZIP 只是文件夹的压缩副本，便于传输或部署，不会把 Web 游戏变成 Windows 程序。\r\n  为避免拿错，已不再保留重复的旧 Web ZIP。\r\n\r\n开发版尚未进行 Windows 代码签名，不代表已完成商用上架。\r\n`);
+`方块消消看 — 构建产物说明\r\n\r\nweb/index.html\r\n  双击即可运行 Web 版，保留目录内全部文件。\r\n\r\nwindows/BlockClearPlay.exe\r\n  Windows 64 位绿色版，无需安装。必须保留整个 windows 目录。\r\n  不生成安装包，文件名和目录名不带版本号。版本见程序属性和 version.json。\r\n  新版构建成功后自动替换旧程序和资源；存档保存在 AppData。\r\n\r\ncore/\r\n  开发用的编译规则库（JS 与类型声明），没有游戏界面。\r\n\r\nrepo 保存源代码；dist 仅保存生成产物，不再保留重复 ZIP。\r\n当前为未签名开发测试版，尚未完成商用上架。\r\n`);

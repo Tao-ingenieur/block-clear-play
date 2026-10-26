@@ -4,9 +4,8 @@ import {fileURLToPath} from 'node:url';
 import {build} from 'vite';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const {version}=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8'));
 const dist=path.resolve(root,'../dist');
-const output=path.join(dist,`web-v${version}`);
+const output=path.join(dist,'web');
 await fs.mkdir(dist,{recursive:true});
 if(path.relative(dist,await fs.realpath(dist))!=='')throw new Error('Output root must not be redirected');
 try{if(path.relative(output,await fs.realpath(output))!=='')throw new Error('Output directory must not be redirected');}

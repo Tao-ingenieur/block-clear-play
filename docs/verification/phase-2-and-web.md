@@ -76,8 +76,8 @@ node tools/license-inventory.mjs
 ## 构建产物
 
 - `dist/core/`：编译的 ES modules、.d.ts 和包元数据，供其他宿主复用。
-- `dist/web-v0.1.0/`：Vite 直接输出生产构建；HTML/CSS/JS 总原始体积约 69KB，gzip 约 23KB。没有外部素材或运行时 CDN 请求，实际精确字节与 SHA-256 见发布包 manifest.json。
-- `dist/web-v0.1.0/` 与 ZIP：静态部署包，只需 HTTP/HTTPS 静态服务。
+- `dist/web/`：Vite 直接输出生产构建；HTML/CSS/JS 总原始体积约 69KB，gzip 约 23KB。没有外部素材或运行时 CDN 请求，实际精确字节与 SHA-256 见发布包 manifest.json。
+- `dist/web/`：静态部署包，可直接双击，也可通过 HTTP/HTTPS 部署；不再生成重复 ZIP。
 - 源码以 repo 为唯一维护位置，不生成或保留 source 副本与源码 ZIP；node_modules 和本地缓存由 .gitignore 排除。
 
 本地开发服务和 QA 服务器只用于本轮验证，最终交付以文件与可复现运行说明为准。
