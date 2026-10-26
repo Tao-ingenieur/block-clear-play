@@ -1,6 +1,6 @@
 DropGrid Echo — third-party notices
 
-The generated Web bundle includes Vite's modulepreload compatibility helper.
+The Web bundle is built with Vite. Its core license is retained below.
 Core game rules, game presentation and synthesized audio are project code.
 
 Vite core — MIT License

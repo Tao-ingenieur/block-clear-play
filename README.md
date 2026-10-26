@@ -1,6 +1,6 @@
 # 方块消消看 / DropGrid Echo
 
-原创方块消除游戏的 TypeScript 工程。目前交付确定性 Core 与本地 Web 单机初版，尚未达到五平台商用发布状态。工作名尚未进行商标检索。
+原创方块消除游戏的 TypeScript 工程。目前交付确定性 Core、可直接打开的 Web 单机版与 Windows 64 位开发版，尚未达到五平台商用发布状态。工作名尚未进行商标检索。
 
 ## 运行
 
@@ -11,17 +11,21 @@ pnpm install --frozen-lockfile
 pnpm dev:web
 ```
 
-打开终端输出的本地地址，默认 http://127.0.0.1:5173/ 。服务器默认只绑定本机，不对外发布。生产文件通过 HTTP/HTTPS 提供，不能双击 index.html 以 file:// 方式运行模块。
+开发时打开终端输出的本地地址，默认 http://127.0.0.1:5173/ 。服务器默认只绑定本机，不对外发布。
+
+玩家运行构建产物时不需要 pnpm：Web 版双击 `../dist/web-v0.1.0/index.html`；Windows 版双击 `../dist/windows-v0.1.0/BlockClearPlay-Setup-0.1.0.exe` 安装，或运行 `win-unpacked/BlockClearPlay.exe`。免安装版必须保留 win-unpacked 整个目录，不能只复制 exe。
 
 ## 验证与构建
 
 ```powershell
 pnpm verify          # Core+Web 类型检查，Core 100% 覆盖门槛，编译与固定回放比对
 pnpm demo            # 无界面解开第一个残局，输出得分和恢复前后哈希
-pnpm build           # 全部构建输出到 ../dist/
+pnpm build           # Core + Web 构建输出到 ../dist/
 pnpm build:core      # Core 编译库：../dist/core/
 pnpm build:web       # Web 生产包：../dist/web-v0.1.0/，含文件校验清单
 pnpm preview:web     # 本地验证生产包，通常端口 4173
+pnpm build:windows   # 在 Windows 上生成 x64 免安装目录和 NSIS 安装包
+pnpm smoke:windows   # 隐藏运行打包后的 exe，验证玩法、暂停、存档与 file:// 入口
 ```
 
 测试使用 Node 自带测试框架；`--test-isolation=none` 让测试在同一进程运行，避免受限 Windows 环境禁止测试子进程。测试各自创建状态，不依赖执行顺序。覆盖范围是 packages/core/src 的全部模块，没有 coverage ignore。
@@ -81,9 +85,10 @@ dropGrid/
     node_modules/          # 仅本地依赖，.gitignore 排除
   dist/                    # 自动生成，不属于源码仓库
     core/                  # 编译后的 JS 库及类型声明
-    web-v0.1.0/            # 可部署 Web 运行文件与 manifest
-    dropgrid-web-v0.1.0.zip # 可分发的 Web 压缩包
-    SHA256SUMS.txt          # 压缩包校验值
+    web-v0.1.0/            # 双击 index.html 游玩，也可部署到静态服务器
+    windows-v0.1.0/        # Windows x64 安装器与 win-unpacked 免安装目录
+    README.txt             # 各产物的用途和启动入口
+    SHA256SUMS.txt          # 安装包校验值
 ```
 
 上传 GitHub 时以 `repo/` 为仓库根目录，包含源码、测试、文档、配置和依赖锁文件。安装依赖使用 `pnpm install --frozen-lockfile`；不要上传 node_modules、本地缓存、环境密钥或外层 dist。构建输出统一在仓库外的 `../dist/`，不生成源码复制目录或源码压缩包。
@@ -92,8 +97,8 @@ dropGrid/
 
 ## 限制与下一步
 
-未交付：微信真机包、APK/AAB、iOS 归档、Windows 安装器、在线服务、真实支付/广告、云存档、运营后台、正式发布合规。Web 仍需浏览器/设备矩阵、真实音频试听、性能/内存测量和视觉打磨；目前的 20 关为入门教学内容，难度设计需继续扩展。
+未交付：微信真机包、APK/AAB、iOS 归档、在线服务、真实支付/广告、云存档、运营后台、正式发布合规。Windows 为未签名的开发测试版，安装包需要单独验证安装/升级/卸载；目前验证了免安装 exe 的实际启动、消行、暂停和存档恢复，不能把这些测试当成完整商用认证。Web 仍需浏览器/设备矩阵、真实音频试听、性能/内存测量和视觉打磨；目前的 20 关为入门教学内容，难度设计需继续扩展。
 
-本地 Web 的“离线单机”表示不需要账号或游戏服务器；首次打开及重新加载仍需要静态文件服务，不含 PWA 离线缓存。音频遵循浏览器权限与平台行为，移动系统静音开关的具体一致性留待原生适配和真机验证。
+Web 生产包使用普通 IIFE 脚本，可从本地文件直接启动，也可在 HTTP/HTTPS 静态服务器部署。file:// 下本地存储行为由浏览器决定，受限时仍可游玩；Windows 版使用独立、稳定的本地来源和用户存档目录。不含 PWA 缓存。音频遵循浏览器权限与平台行为，移动系统静音开关的具体一致性留待原生适配和真机验证。
 
-生产发布需 HTTPS、自己的域名/服务器与平台资质。iOS 构建需 macOS/Xcode 和开发者账号；密钥、证书、个人信息不要提交到工程。详细状态见 [验证报告](docs/verification/phase-2-and-web.md)。
+线上 Web 发布需 HTTPS、自己的域名/服务器与平台资质。iOS 构建需 macOS/Xcode 和开发者账号；密钥、证书、个人信息不要提交到工程。最新状态见 [Windows 与本地文件启动验证](docs/verification/windows-and-file-launch.md)，Core 的初期验收见 [历史验证报告](docs/verification/phase-2-and-web.md)。

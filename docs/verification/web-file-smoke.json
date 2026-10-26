@@ -1,0 +1,15 @@
+{
+  "pass": true,
+  "packaged": true,
+  "fileEntry": true,
+  "electron": "45.0.0",
+  "checks": [
+    "window and renderer loaded",
+    "sandboxed renderer has no Node access",
+    "puzzle UI cleared four lines and scored 2834",
+    "hard drop and pause keep pending inputs",
+    "local save survives reload"
+  ],
+  "errors": [],
+  "error": null
+}
