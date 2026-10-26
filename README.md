@@ -1,6 +1,6 @@
 # 方块消消看 / DropGrid Echo
 
-原创方块消除游戏的 TypeScript 工程。目前交付确定性 Core、可直接打开的 Web 单机版与 Windows 64 位开发版，尚未达到五平台商用发布状态。工作名尚未进行商标检索。
+原创方块消除游戏的 TypeScript 工程。目前交付确定性 Core、可直接打开的 Web 单机版、Windows 64 位开发版和 Android Debug 构建工程，尚未达到五平台商用发布状态。工作名尚未进行商标检索。
 
 ## 运行
 
@@ -25,6 +25,7 @@ pnpm build:core      # Core 编译库：../dist/core/
 pnpm build:web       # Web 生产包：../dist/web/，含文件校验清单
 pnpm preview:web     # 本地验证生产包，通常端口 4173
 pnpm build:windows   # 在 Windows 上生成 x64 绿色版，自动替换旧产物
+pnpm build:android   # 本地需 JDK17/Gradle8.11.1/Android SDK35；也可用 GitHub Actions 云端构建
 pnpm smoke:windows   # 隐藏运行打包后的 exe，验证玩法、暂停、存档与 file:// 入口
 ```
 
@@ -86,6 +87,7 @@ dropGrid/
   dist/                    # 自动生成，不属于源码仓库
     core/                  # 编译后的 JS 库及类型声明
     web/                   # 双击 index.html 游玩，也可部署到静态服务器
+    android/               # Android Debug APK，云端生成后可下载
     windows/               # Windows x64 绿色版，直接运行 BlockClearPlay.exe
     README.txt             # 各产物的用途和启动入口
     SHA256SUMS.txt          # 绿色版 EXE 校验值
@@ -97,8 +99,10 @@ dropGrid/
 
 ## 限制与下一步
 
-未交付：微信真机包、APK/AAB、iOS 归档、在线服务、真实支付/广告、云存档、运营后台、正式发布合规。Windows 为未签名的开发测试版；目前验证了免安装 exe 的实际启动、消行、暂停和存档恢复，不能把这些测试当成完整商用认证。Web 仍需浏览器/设备矩阵、真实音频试听、性能/内存测量和视觉打磨；目前的 20 关为入门教学内容，难度设计需继续扩展。
+未交付：微信真机包、正式签名 APK/AAB、iOS 归档、在线服务、真实支付/广告、云存档、运营后台、正式发布合规。Windows 为未签名的开发测试版；目前验证了免安装 exe 的实际启动、消行、暂停和存档恢复，不能把这些测试当成完整商用认证。Web 仍需浏览器/设备矩阵、真实音频试听、性能/内存测量和视觉打磨；目前的 20 关为入门教学内容，难度设计需继续扩展。
 
 Web 生产包使用普通 IIFE 脚本，可从本地文件直接启动，也可在 HTTP/HTTPS 静态服务器部署。file:// 下本地存储行为由浏览器决定，受限时仍可游玩；Windows 版使用独立、稳定的本地来源和用户存档目录。不含 PWA 缓存。音频遵循浏览器权限与平台行为，移动系统静音开关的具体一致性留待原生适配和真机验证。
 
 线上 Web 发布需 HTTPS、自己的域名/服务器与平台资质。iOS 构建需 macOS/Xcode 和开发者账号；密钥、证书、个人信息不要提交到工程。最新状态见 [Windows 与本地文件启动验证](docs/verification/windows-and-file-launch.md)，Core 的初期验收见 [历史验证报告](docs/verification/phase-2-and-web.md)。
+
+Android Debug 自动构建和下载方法见 [Android 文档](docs/android-debug.md)。云端产物在 Actions 的 android-debug Artifact 中，不提交到 Git。

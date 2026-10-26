@@ -1,0 +1,57 @@
+name: Android Debug APK
+on:
+  push:
+    branches: [main]
+    paths: ['apps/android/**', 'apps/web/**', 'packages/**', 'tools/**', 'package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', '.github/workflows/android-debug.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: android-debug-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: pnpm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify
+      - name: Build and lint Android debug app
+        run: gradle -p apps/android --no-daemon assembleDebug lintDebug
+      - name: Prepare stable output
+        run: node tools/package-android.mjs
+      - name: Verify APK signature and packaged Web resources
+        run: |
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose ../dist/android/BlockClearPlay-debug.apk
+          unzip -l ../dist/android/BlockClearPlay-debug.apk | grep 'assets/web/index.html'
+          unzip -l ../dist/android/BlockClearPlay-debug.apk | grep 'assets/web/game.js'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-debug
+          path: ../dist/android/
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-lint-report
+          path: apps/android/app/build/reports/lint-results-debug.html
+          if-no-files-found: ignore
+          retention-days: 14

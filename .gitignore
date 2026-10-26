@@ -10,3 +10,5 @@ dist/
 *.keystore
 *.p12
 *.mobileprovision
+.gradle/
+local.properties

@@ -257,6 +257,8 @@ function frame(now:number):void{
 function downloadReplay():void{
   const replay=playback??(started?{schema:1,ruleset:RULESET,config:initialConfig,endTick:game.tick,inputs:log}:lastReplay);
   if(!replay||game.tick===0){toast(t('noReplay'));return;}
+  const native=(window as Window & {NativeReplay?:{postMessage(message:string):void}}).NativeReplay;
+  if(native){native.postMessage(JSON.stringify({content:JSON.stringify(replay)}));return;}
   const blob=new Blob([JSON.stringify(replay)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');
   link.href=url;link.download=`dropgrid-${mode}-${game.tick}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }

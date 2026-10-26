@@ -23,7 +23,8 @@
     "smoke:windows": "node tools/smoke-desktop.mjs --packaged",
     "demo": "node tools/simulate.ts",
     "verify:build": "node tools/verify-build.mjs",
-    "verify": "pnpm typecheck && pnpm test:coverage && pnpm build && pnpm verify:build"
+    "verify": "pnpm typecheck && pnpm test:coverage && pnpm build && pnpm verify:build",
+    "build:android": "pnpm build:web && gradle -p apps/android --no-daemon assembleDebug lintDebug && node tools/package-android.mjs"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
